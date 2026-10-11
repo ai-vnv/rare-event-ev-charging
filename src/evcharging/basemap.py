@@ -9,7 +9,7 @@ providers are supported:
     Positron itself.  Carto has retired its raster tiles, so the vector tiles are
     rendered once with MapLibre in headless Chromium.  Needs a (free) Carto API key and
     the optional ``playwright`` dependency.
-``esri`` (default)
+``esri``
     Esri *World Light Gray Canvas*, base plus reference layer, stitched from raster
     tiles.  No key and no browser, and close to Positron in look.
 
