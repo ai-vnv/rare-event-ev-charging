@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "evcharging"
+version = "1.0.0"
+description = "Robust EV charging-station location under rare-event disruptions (IEEM 2026)"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.10"
+authors = [
+    { name = "Mansur M. Arief", email = "mansur.arief@kfupm.edu.sa" },
+]
+dependencies = [
+    "numpy>=1.24",
+    "scipy>=1.10",
+    "pandas>=2.0",
+    "matplotlib>=3.7",
+    "pillow>=10.0",
+    "pyomo>=6.7",
+    "highspy>=1.7",
+]
+
+[project.optional-dependencies]
+test = ["pytest>=7"]
+# Only needed to rebuild the basemap cache; the committed one builds the figures.
+maps = ["playwright>=1.40"]
+
+[project.urls]
+Repository = "https://github.com/ai-vnv/rare-event-ev-charging"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

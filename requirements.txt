@@ -1,0 +1,8 @@
+numpy>=1.24
+scipy>=1.10
+pandas>=2.0
+matplotlib>=3.7
+pillow>=10.0
+pyomo>=6.7
+highspy>=1.7
+pytest>=7

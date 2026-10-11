@@ -1,0 +1,53 @@
+{
+  "n": 10000,
+  "proxy_corr": 0.999,
+  "reliability_min": 0.976803061414424,
+  "reliability_max": 0.9791430729593241,
+  "objective_million_idr": {
+    "Non-Robust": 123.6,
+    "Robust": 126.26,
+    "Misspecified #1": 125.9,
+    "Misspecified #2": 126.0,
+    "Non-Robust (best tie-break)": 126.0
+  },
+  "robust_vs_non_robust_pct": {
+    "objective_worst_tie_break": 2.149069461020292,
+    "objective_best_tie_break": 0.20405888005807782,
+    "cost": 9.691053096667979,
+    "revenue": -0.022794663692549122,
+    "penalty_worst_tie_break": -26.108710490367226,
+    "penalty_best_tie_break": -11.076785731212546
+  },
+  "misspecified_loss_vs_robust_pct": {
+    "Misspecified #1": 0.2833326965038463,
+    "Misspecified #2": 0.20365929226405788
+  },
+  "backup_share": {
+    "Non-Robust": 0.45161290322580644,
+    "Robust": 0.7419354838709677,
+    "Misspecified #1": 0.9032258064516129,
+    "Misspecified #2": 0.45161290322580644,
+    "Non-Robust (best tie-break)": 0.45161290322580644
+  },
+  "mean_travel_min": {
+    "Non-Robust": 20.759112519809825,
+    "Robust": 15.10459587955626,
+    "Misspecified #1": 13.38351822503962,
+    "Misspecified #2": 17.004754358161648,
+    "Non-Robust (best tie-break)": 17.00633914421553
+  },
+  "paired_gain_million_idr": {
+    "mean": 2.5997351400671413,
+    "se": 0.0959353304899319
+  },
+  "se_ratio_mc_over_cv": {
+    "theory": 3.430719950627841,
+    "this_sample": 3.6645694314777266
+  },
+  "sample_size_ratio_mc_over_cv": {
+    "theory": 11.769839379635897,
+    "this_sample": 13.429069118120989
+  },
+  "reliability_se_ratio_mc_over_cv": 3.1783299021838576,
+  "hoeffding_n_delta_1e-4_alpha_0.05": 184443972.70569682
+}

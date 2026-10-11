@@ -1,0 +1,342 @@
+subdistrict,station,minutes_motorcycle,minutes_car
+Asemrowo,Embong Wungu,18,22
+Asemrowo,Indrapura,15,16
+Asemrowo,Ploso,26,31
+Asemrowo,Tandes,14,23
+Asemrowo,Perak,13,14
+Asemrowo,Kenjeran,28,32
+Asemrowo,Darmo Permai,11,13
+Asemrowo,Dukuh Kupang,16,19
+Asemrowo,Ngagel,24,28
+Asemrowo,Rungkut,35,43
+Asemrowo,Karang Pilang,28,33
+Benowo,Embong Wungu,27,41
+Benowo,Indrapura,27,34
+Benowo,Ploso,41,49
+Benowo,Tandes,14,16
+Benowo,Perak,25,29
+Benowo,Kenjeran,42,54
+Benowo,Darmo Permai,18,21
+Benowo,Dukuh Kupang,25,28
+Benowo,Ngagel,33,38
+Benowo,Rungkut,42,53
+Benowo,Karang Pilang,37,41
+Bubutan,Embong Wungu,11,12
+Bubutan,Indrapura,6,7
+Bubutan,Ploso,17,20
+Bubutan,Tandes,21,26
+Bubutan,Perak,11,13
+Bubutan,Kenjeran,22,25
+Bubutan,Darmo Permai,23,25
+Bubutan,Dukuh Kupang,16,18
+Bubutan,Ngagel,17,20
+Bubutan,Rungkut,30,39
+Bubutan,Karang Pilang,30,36
+Bulak,Embong Wungu,25,28
+Bulak,Indrapura,20,22
+Bulak,Ploso,11,13
+Bulak,Tandes,48,50
+Bulak,Perak,25,28
+Bulak,Kenjeran,9,10
+Bulak,Darmo Permai,39,45
+Bulak,Dukuh Kupang,32,38
+Bulak,Ngagel,25,28
+Bulak,Rungkut,34,46
+Bulak,Karang Pilang,42,47
+Dukuh Pakis,Embong Wungu,17,19
+Dukuh Pakis,Indrapura,27,30
+Dukuh Pakis,Ploso,30,34
+Dukuh Pakis,Tandes,19,25
+Dukuh Pakis,Perak,26,29
+Dukuh Pakis,Kenjeran,34,38
+Dukuh Pakis,Darmo Permai,4,7
+Dukuh Pakis,Dukuh Kupang,8,9
+Dukuh Pakis,Ngagel,19,22
+Dukuh Pakis,Rungkut,27,32
+Dukuh Pakis,Karang Pilang,18,21
+Gayungan,Embong Wungu,24,28
+Gayungan,Indrapura,26,33
+Gayungan,Ploso,34,41
+Gayungan,Tandes,36,44
+Gayungan,Perak,29,34
+Gayungan,Kenjeran,43,53
+Gayungan,Darmo Permai,24,29
+Gayungan,Dukuh Kupang,17,19
+Gayungan,Ngagel,26,34
+Gayungan,Rungkut,13,16
+Gayungan,Karang Pilang,13,16
+Genteng,Embong Wungu,7,8
+Genteng,Indrapura,10,12
+Genteng,Ploso,9,10
+Genteng,Tandes,31,32
+Genteng,Perak,18,21
+Genteng,Kenjeran,16,19
+Genteng,Darmo Permai,26,30
+Genteng,Dukuh Kupang,18,22
+Genteng,Ngagel,11,13
+Genteng,Rungkut,29,34
+Genteng,Karang Pilang,29,34
+Gubeng,Embong Wungu,8,11
+Gubeng,Indrapura,16,18
+Gubeng,Ploso,12,14
+Gubeng,Tandes,32,36
+Gubeng,Perak,24,27
+Gubeng,Kenjeran,19,23
+Gubeng,Darmo Permai,27,34
+Gubeng,Dukuh Kupang,19,22
+Gubeng,Ngagel,6,8
+Gubeng,Rungkut,21,26
+Gubeng,Karang Pilang,25,30
+Gunung Anyar,Embong Wungu,23,26
+Gunung Anyar,Indrapura,32,34
+Gunung Anyar,Ploso,31,39
+Gunung Anyar,Tandes,45,54
+Gunung Anyar,Perak,39,46
+Gunung Anyar,Kenjeran,39,49
+Gunung Anyar,Darmo Permai,35,41
+Gunung Anyar,Dukuh Kupang,27,31
+Gunung Anyar,Ngagel,21,26
+Gunung Anyar,Rungkut,8,9
+Gunung Anyar,Karang Pilang,29,37
+Jambangan,Embong Wungu,19,21
+Jambangan,Indrapura,27,31
+Jambangan,Ploso,31,37
+Jambangan,Tandes,34,43
+Jambangan,Perak,31,37
+Jambangan,Kenjeran,40,49
+Jambangan,Darmo Permai,24,26
+Jambangan,Dukuh Kupang,16,19
+Jambangan,Ngagel,21,27
+Jambangan,Rungkut,16,20
+Jambangan,Karang Pilang,12,14
+Karang Pilang,Embong Wungu,20,24
+Karang Pilang,Indrapura,28,36
+Karang Pilang,Ploso,34,41
+Karang Pilang,Tandes,34,43
+Karang Pilang,Perak,32,40
+Karang Pilang,Kenjeran,42,52
+Karang Pilang,Darmo Permai,21,27
+Karang Pilang,Dukuh Kupang,16,20
+Karang Pilang,Ngagel,24,30
+Karang Pilang,Rungkut,24,31
+Karang Pilang,Karang Pilang,1,1
+Kenjeran,Embong Wungu,22,25
+Kenjeran,Indrapura,17,18
+Kenjeran,Ploso,15,19
+Kenjeran,Tandes,30,37
+Kenjeran,Perak,21,25
+Kenjeran,Kenjeran,2,3
+Kenjeran,Darmo Permai,39,44
+Kenjeran,Dukuh Kupang,32,41
+Kenjeran,Ngagel,27,34
+Kenjeran,Rungkut,42,53
+Kenjeran,Karang Pilang,47,54
+Krembangan,Embong Wungu,11,13
+Krembangan,Indrapura,3,4
+Krembangan,Ploso,19,23
+Krembangan,Tandes,15,20
+Krembangan,Perak,9,12
+Krembangan,Kenjeran,21,26
+Krembangan,Darmo Permai,26,27
+Krembangan,Dukuh Kupang,18,21
+Krembangan,Ngagel,18,25
+Krembangan,Rungkut,35,45
+Krembangan,Karang Pilang,35,44
+Lakarsantri,Embong Wungu,28,30
+Lakarsantri,Indrapura,36,44
+Lakarsantri,Ploso,42,50
+Lakarsantri,Tandes,33,39
+Lakarsantri,Perak,36,42
+Lakarsantri,Kenjeran,51,62
+Lakarsantri,Darmo Permai,23,34
+Lakarsantri,Dukuh Kupang,21,28
+Lakarsantri,Ngagel,35,46
+Lakarsantri,Rungkut,37,47
+Lakarsantri,Karang Pilang,16,19
+Mulyorejo,Embong Wungu,18,20
+Mulyorejo,Indrapura,17,20
+Mulyorejo,Ploso,8,10
+Mulyorejo,Tandes,42,44
+Mulyorejo,Perak,27,35
+Mulyorejo,Kenjeran,14,19
+Mulyorejo,Darmo Permai,39,45
+Mulyorejo,Dukuh Kupang,28,35
+Mulyorejo,Ngagel,21,26
+Mulyorejo,Rungkut,28,38
+Mulyorejo,Karang Pilang,31,37
+Pabean Cantian,Embong Wungu,16,19
+Pabean Cantian,Indrapura,7,8
+Pabean Cantian,Ploso,24,29
+Pabean Cantian,Tandes,18,29
+Pabean Cantian,Perak,4,5
+Pabean Cantian,Kenjeran,24,29
+Pabean Cantian,Darmo Permai,28,35
+Pabean Cantian,Dukuh Kupang,27,28
+Pabean Cantian,Ngagel,23,29
+Pabean Cantian,Rungkut,40,50
+Pabean Cantian,Karang Pilang,39,50
+Pakal,Embong Wungu,32,38
+Pakal,Indrapura,35,42
+Pakal,Ploso,48,59
+Pakal,Tandes,26,29
+Pakal,Perak,38,39
+Pakal,Kenjeran,56,62
+Pakal,Darmo Permai,28,31
+Pakal,Dukuh Kupang,34,42
+Pakal,Ngagel,48,58
+Pakal,Rungkut,55,72
+Pakal,Karang Pilang,41,54
+Rungkut,Embong Wungu,21,24
+Rungkut,Indrapura,31,33
+Rungkut,Ploso,23,27
+Rungkut,Tandes,41,42
+Rungkut,Perak,36,45
+Rungkut,Kenjeran,30,40
+Rungkut,Darmo Permai,35,42
+Rungkut,Dukuh Kupang,29,33
+Rungkut,Ngagel,18,28
+Rungkut,Rungkut,13,16
+Rungkut,Karang Pilang,35,45
+Sambikerep,Embong Wungu,28,31
+Sambikerep,Indrapura,31,37
+Sambikerep,Ploso,43,53
+Sambikerep,Tandes,20,22
+Sambikerep,Perak,34,35
+Sambikerep,Kenjeran,50,60
+Sambikerep,Darmo Permai,20,23
+Sambikerep,Dukuh Kupang,27,36
+Sambikerep,Ngagel,41,47
+Sambikerep,Rungkut,49,62
+Sambikerep,Karang Pilang,29,35
+Sawahan,Embong Wungu,8,10
+Sawahan,Indrapura,15,17
+Sawahan,Ploso,23,28
+Sawahan,Tandes,17,29
+Sawahan,Perak,15,17
+Sawahan,Kenjeran,31,40
+Sawahan,Darmo Permai,13,15
+Sawahan,Dukuh Kupang,9,11
+Sawahan,Ngagel,19,21
+Sawahan,Rungkut,26,34
+Sawahan,Karang Pilang,25,33
+Semampir,Embong Wungu,22,24
+Semampir,Indrapura,13,14
+Semampir,Ploso,22,26
+Semampir,Tandes,33,34
+Semampir,Perak,16,19
+Semampir,Kenjeran,12,13
+Semampir,Darmo Permai,35,43
+Semampir,Dukuh Kupang,33,36
+Semampir,Ngagel,27,33
+Semampir,Rungkut,45,56
+Semampir,Karang Pilang,46,57
+Simokerto,Embong Wungu,13,15
+Simokerto,Indrapura,7,8
+Simokerto,Ploso,14,17
+Simokerto,Tandes,31,32
+Simokerto,Perak,14,18
+Simokerto,Kenjeran,13,16
+Simokerto,Darmo Permai,32,36
+Simokerto,Dukuh Kupang,24,30
+Simokerto,Ngagel,18,23
+Simokerto,Rungkut,35,45
+Simokerto,Karang Pilang,35,45
+Sukolilo,Embong Wungu,15,16
+Sukolilo,Indrapura,25,28
+Sukolilo,Ploso,19,20
+Sukolilo,Tandes,38,44
+Sukolilo,Perak,38,49
+Sukolilo,Kenjeran,26,33
+Sukolilo,Darmo Permai,34,45
+Sukolilo,Dukuh Kupang,25,33
+Sukolilo,Ngagel,13,16
+Sukolilo,Rungkut,17,20
+Sukolilo,Karang Pilang,30,36
+Sukomanunggal,Embong Wungu,16,17
+Sukomanunggal,Indrapura,23,28
+Sukomanunggal,Ploso,31,37
+Sukomanunggal,Tandes,14,17
+Sukomanunggal,Perak,21,37
+Sukomanunggal,Kenjeran,39,43
+Sukomanunggal,Darmo Permai,5,5
+Sukomanunggal,Dukuh Kupang,11,13
+Sukomanunggal,Ngagel,25,33
+Sukomanunggal,Rungkut,33,42
+Sukomanunggal,Karang Pilang,21,30
+Tambaksari,Embong Wungu,14,16
+Tambaksari,Indrapura,13,14
+Tambaksari,Ploso,7,8
+Tambaksari,Tandes,35,36
+Tambaksari,Perak,20,24
+Tambaksari,Kenjeran,9,10
+Tambaksari,Darmo Permai,32,39
+Tambaksari,Dukuh Kupang,24,30
+Tambaksari,Ngagel,17,24
+Tambaksari,Rungkut,32,43
+Tambaksari,Karang Pilang,33,43
+Tandes,Embong Wungu,20,22
+Tandes,Indrapura,21,30
+Tandes,Ploso,35,43
+Tandes,Tandes,10,13
+Tandes,Perak,25,33
+Tandes,Kenjeran,42,51
+Tandes,Darmo Permai,11,13
+Tandes,Dukuh Kupang,20,25
+Tandes,Ngagel,28,35
+Tandes,Rungkut,39,51
+Tandes,Karang Pilang,31,45
+Tegalsari,Embong Wungu,4,5
+Tegalsari,Indrapura,14,16
+Tegalsari,Ploso,17,21
+Tegalsari,Tandes,23,27
+Tegalsari,Perak,17,20
+Tegalsari,Kenjeran,25,31
+Tegalsari,Darmo Permai,19,22
+Tegalsari,Dukuh Kupang,11,12
+Tegalsari,Ngagel,10,11
+Tegalsari,Rungkut,26,31
+Tegalsari,Karang Pilang,21,27
+Tenggilis Mejoyo,Embong Wungu,18,20
+Tenggilis Mejoyo,Indrapura,27,30
+Tenggilis Mejoyo,Ploso,26,33
+Tenggilis Mejoyo,Tandes,39,42
+Tenggilis Mejoyo,Perak,39,44
+Tenggilis Mejoyo,Kenjeran,35,43
+Tenggilis Mejoyo,Darmo Permai,34,37
+Tenggilis Mejoyo,Dukuh Kupang,25,31
+Tenggilis Mejoyo,Ngagel,14,17
+Tenggilis Mejoyo,Rungkut,9,11
+Tenggilis Mejoyo,Karang Pilang,25,26
+Wiyung,Embong Wungu,21,25
+Wiyung,Indrapura,27,36
+Wiyung,Ploso,36,43
+Wiyung,Tandes,29,45
+Wiyung,Perak,32,38
+Wiyung,Kenjeran,42,54
+Wiyung,Darmo Permai,22,32
+Wiyung,Dukuh Kupang,18,21
+Wiyung,Ngagel,21,26
+Wiyung,Rungkut,30,38
+Wiyung,Karang Pilang,9,10
+Wonocolo,Embong Wungu,12,17
+Wonocolo,Indrapura,21,25
+Wonocolo,Ploso,27,31
+Wonocolo,Tandes,34,40
+Wonocolo,Perak,34,36
+Wonocolo,Kenjeran,34,41
+Wonocolo,Darmo Permai,28,32
+Wonocolo,Dukuh Kupang,19,23
+Wonocolo,Ngagel,16,17
+Wonocolo,Rungkut,11,14
+Wonocolo,Karang Pilang,23,25
+Wonokromo,Embong Wungu,8,9
+Wonokromo,Indrapura,18,20
+Wonokromo,Ploso,22,25
+Wonokromo,Tandes,29,31
+Wonokromo,Perak,30,31
+Wonokromo,Kenjeran,30,37
+Wonokromo,Darmo Permai,23,27
+Wonokromo,Dukuh Kupang,13,15
+Wonokromo,Ngagel,5,6
+Wonokromo,Rungkut,16,19
+Wonokromo,Karang Pilang,17,20

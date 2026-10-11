@@ -1,0 +1,13 @@
+{
+  "south": -7.374067291152882,
+  "north": -7.172877595529238,
+  "west": 112.55892114830053,
+  "east": 112.87095480408044,
+  "centre_lat": -7.273483714285716,
+  "centre_lon": 112.71493797619048,
+  "zoom": 9.9,
+  "provider": "carto",
+  "attribution": "\u00a9 Carto \u00a9 OpenStreetMap contributors",
+  "width_px": 3392,
+  "height_px": 2208
+}

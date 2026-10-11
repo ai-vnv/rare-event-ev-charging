@@ -1,0 +1,21 @@
+{
+  "electricity_price_idr_per_kwh": 2466.77,
+  "penalty_idr_per_minute_per_vehicle": 50000,
+  "charge_energy_kwh": {
+    "motorcycle": 90,
+    "car": 133
+  },
+  "charge_time_min": {
+    "motorcycle": 20,
+    "car": 39
+  },
+  "connector_daily_cost_idr": 479285.29,
+  "connector_minutes_per_day": 1440,
+  "max_connectors_per_station": 8,
+  "max_stations": 11,
+  "max_travel_time_min": 35,
+  "min_service_level": 0.95,
+  "existing_stations": [
+    "Embong Wungu"
+  ]
+}

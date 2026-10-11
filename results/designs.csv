@@ -1,0 +1,6 @@
+design,stations,opened (connectors),cost,revenue,penalty,objective,backup_share,mean_travel_min
+Non-Robust,2,Embong Wungu (7); Tandes (4),11025562.8500,149026322.7669,14396726.8251,123604033.0918,0.4516,20.7591
+Robust,3,Embong Wungu (7); Ploso (2); Tandes (2),12094056.0000,148992352.7179,10637927.0982,126260369.6196,0.7419,15.1046
+Misspecified #1,4,Embong Wungu (5); Ploso (2); Tandes (2); Karang Pilang (2),13737891.6200,149002036.1015,9361511.7718,125902632.7098,0.9032,13.3835
+Misspecified #2,2,Embong Wungu (8); Tandes (3),11025562.8500,148991642.2128,11962850.7183,126003228.6444,0.4516,17.0048
+Non-Robust (best tie-break),2,Embong Wungu (8); Tandes (3),11025562.8500,148991859.9798,11963048.3285,126003248.8013,0.4516,17.0063
