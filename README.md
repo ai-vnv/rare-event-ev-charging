@@ -166,10 +166,12 @@ west from Embong Wungu alone.
 
 GitHub shows `results/interactive.html` as source, so open the file locally, or serve it
 from any static host (GitHub Pages: Settings, Pages, deploy from `main`, then
-`/results/interactive.html`). The preview above is `results/figures/interactive_preview.gif`.
+`/results/interactive.html`). The preview above is `results/figures/interactive_preview.gif`,
+captured with "Show assignments" ticked by `scripts/make_preview.py` (needs Playwright).
 
 ```bash
 python scripts/sweep_travel_time.py && python scripts/build_interactive.py
+uv run --with playwright --with pillow python scripts/make_preview.py   # optional: redraw the GIF
 ```
 
 ## Modelling notes
@@ -215,7 +217,8 @@ exceed 2.2%. The numbers in this repository are the ones the code produces.
 ```
 data/            Surabaya case: stations, demand, travel times, parameters, basemap
 src/evcharging/  the package (data, model, simulate, plots, basemap)
-scripts/         reproduce.py, fetch_basemap.py, sweep_travel_time.py, build_interactive.py
+scripts/         reproduce.py, fetch_basemap.py, sweep_travel_time.py,
+                 build_interactive.py, make_preview.py
 examples/        quickstart.py
 results/         committed outputs of reproduce.py
 tests/           pytest suite
