@@ -1,7 +1,6 @@
 """Figures of the paper.
 
-The maps reproduce the figure of the paper, which the original
-`EVChargeSim <https://github.com/mansurarief/EVChargeSim>`_ code drew with
+The maps reproduce the figure of the paper, which the original Plotly code drew with
 ``plotly.express.scatter_mapbox`` on the Carto Positron basemap: demand nodes sized by
 population, opened stations sized by the number of connectors, candidates that stay
 closed at a fixed small size, and a black line for every demand node served by a
@@ -110,7 +109,7 @@ def node_table(case: Case, design: Optional[Design] = None) -> pd.DataFrame:
 
     Demand nodes are sized by population in units of ten thousand people, a station
     that stays closed has a fixed small size, and an opened station is sized by its
-    number of connectors -- exactly as ``create_plot`` does in EVChargeSim.
+    number of connectors -- exactly as the original Plotly code does.
     """
     demand = pd.DataFrame({
         "node": case.demand["subdistrict"], "lat": case.demand["lat"], "lon": case.demand["lon"],

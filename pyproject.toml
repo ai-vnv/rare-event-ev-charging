@@ -10,7 +10,7 @@ readme = "README.md"
 license = { text = "MIT" }
 requires-python = ">=3.10"
 authors = [
-    { name = "Mansur M. Arief", email = "mansur.arief@kfupm.edu.sa" },
+    { name = "Anonymous" },
 ]
 dependencies = [
     "numpy>=1.24",
@@ -26,9 +26,6 @@ dependencies = [
 test = ["pytest>=7"]
 # Only needed to rebuild the basemap cache; the committed one builds the figures.
 maps = ["playwright>=1.40"]
-
-[project.urls]
-Repository = "https://github.com/ai-vnv/rare-event-ev-charging"
 
 [tool.setuptools.packages.find]
 where = ["src"]

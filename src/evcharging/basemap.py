@@ -1,8 +1,8 @@
 """Cached light-canvas basemap for the maps of the paper.
 
 The maps of the paper are drawn on the Carto *Positron* basemap, the tile set that
-Plotly serves as ``mapbox_style="carto-positron"`` in the original
-`EVChargeSim <https://github.com/mansurarief/EVChargeSim>`_ implementation.  Two
+Plotly serves as ``mapbox_style="carto-positron"`` in the original Plotly
+implementation.  Two
 providers are supported:
 
 ``carto``
@@ -319,7 +319,7 @@ def _download(url: str, timeout: float = 30.0):
     from PIL import Image
 
     request = urllib.request.Request(url, headers={
-        "User-Agent": "evcharging/1.0 (+https://github.com/mansurarief/rare-event-ev-charging)"})
+        "User-Agent": "evcharging/1.0"})
     with urllib.request.urlopen(request, timeout=timeout) as response:
         return Image.open(response).convert("RGBA")
 

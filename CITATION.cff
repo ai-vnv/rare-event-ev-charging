@@ -4,20 +4,12 @@ title: "rare-event-ev-charging: robust EV charging-station location under rare-e
 type: software
 version: 1.0.0
 license: MIT
-repository-code: "https://github.com/ai-vnv/rare-event-ev-charging"
 authors:
-  - family-names: Arief
-    given-names: Mansur M.
-    email: mansur.arief@kfupm.edu.sa
+  - name: Anonymous
 preferred-citation:
   type: conference-paper
   title: "A Robust Electric Vehicle Charging Station Optimization under Rare Event Disruptions"
   authors:
-    - family-names: Akhra
-      given-names: Yan Pratama
-    - family-names: Vanany
-      given-names: Iwan
-    - family-names: Arief
-      given-names: Mansur M.
+    - name: Anonymous
   collection-title: "2026 IEEE International Conference on Industrial Engineering and Engineering Management (IEEM)"
   year: 2026

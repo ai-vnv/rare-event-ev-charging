@@ -1,23 +1,20 @@
 # Robust EV charging-station location under rare-event disruptions
 
-[![CI][ci-badge]][ci-url]
-[![Python][py-badge]][repo-url]
+[![Python][py-badge]](#quick-start)
 [![License: MIT][lic-badge]][lic-url]
 [![Solver: HiGHS][highs-badge]][highs-url]
 [![Paper: IEEM 2026][paper-badge]](#citation)
-[![arXiv][arxiv-badge]][arxiv-url]
 
 Code and data for the paper **"A Robust Electric Vehicle Charging Station Optimization
-under Rare Event Disruptions"** (Y. P. Akhra, I. Vanany, M. M. Arief, IEEE IEEM 2026).
+under Rare Event Disruptions"** (submitted to IEEE IEEM 2026, under review).
+
+*This repository is anonymized for double-blind review.*
 
 The model chooses where to open charging stations and how many connectors to install
 when each station can lose power for a day. Station reliabilities are estimated by
 simulation with a control variate, and they enter both the objective and the
 service-level constraints of a mixed-integer program. The case study covers 11
 candidate stations, 31 sub-districts and two vehicle types in Surabaya, Indonesia.
-
-Maintained by the [AI Verification & Validation (AI V&V) Lab](https://ai-vnv.kfupm.io)
-at King Fahd University of Petroleum and Minerals (KFUPM).
 
 <p align="center">
   <img src="results/figures/fig4_designs.png" alt="Non-Robust and Robust designs for Surabaya" width="820">
@@ -26,8 +23,7 @@ at King Fahd University of Petroleum and Minerals (KFUPM).
 ## Quick start
 
 ```bash
-git clone https://github.com/ai-vnv/rare-event-ev-charging.git
-cd rare-event-ev-charging
+cd rare-event-ev-charging    # the unpacked anonymized repository
 pip install -e ".[test]"
 
 pytest -q                      # 21 tests, a few seconds
@@ -115,7 +111,7 @@ example is in [`examples/quickstart.py`](examples/quickstart.py).
 ## The map of the paper
 
 The maps are an exact redraw of the figure in the paper, which the original
-[EVChargeSim](https://github.com/mansurarief/EVChargeSim) code produced with
+Plotly code produced with
 `plotly.express.scatter_mapbox` on the Carto Positron basemap. The published figure is
 an 800 x 520 pixel raster; segmenting its markers and fitting a Web Mercator view to the
 eleven candidate stations recovers the Plotly call behind it:
@@ -207,7 +203,7 @@ These points are needed to reproduce the results and are stated here in one plac
 
 ### Relation to earlier versions
 
-An earlier draft of this work (arXiv:2307.05470v1) reports a 13% higher objective for
+An earlier preprint on this case study reports a 13% higher objective for
 the Robust Model and a standard error ten times smaller with control variates. Those
 figures could not be reproduced from the model and data as stated. Under objective (2)
 with the parameters of Tables I and II and Embong Wungu kept open, the best feasible
@@ -228,8 +224,8 @@ tests/           pytest suite
 ## Citation
 
 ```bibtex
-@inproceedings{akhra2026robust,
-  author    = {Akhra, Yan Pratama and Vanany, Iwan and Arief, Mansur M.},
+@inproceedings{anonymous2026robust,
+  author    = {Anonymous},
   title     = {A Robust Electric Vehicle Charging Station Optimization under Rare Event Disruptions},
   booktitle = {2026 IEEE International Conference on Industrial Engineering and Engineering Management (IEEM)},
   year      = {2026}
@@ -242,14 +238,9 @@ Code is released under the [MIT License](LICENSE). The basemap is the Carto Posi
 style over OpenStreetMap data; see [`data/README.md`](data/README.md) for data
 provenance and attribution.
 
-[ci-badge]: https://github.com/ai-vnv/rare-event-ev-charging/actions/workflows/ci.yml/badge.svg
-[ci-url]: https://github.com/ai-vnv/rare-event-ev-charging/actions/workflows/ci.yml
 [py-badge]: https://img.shields.io/badge/python-3.10%2B-blue.svg
-[repo-url]: https://github.com/ai-vnv/rare-event-ev-charging
 [lic-badge]: https://img.shields.io/badge/license-MIT-green.svg
 [lic-url]: LICENSE
 [highs-badge]: https://img.shields.io/badge/solver-HiGHS-orange.svg
 [highs-url]: https://highs.dev
 [paper-badge]: https://img.shields.io/badge/paper-IEEM%202026-lightgrey.svg
-[arxiv-badge]: https://img.shields.io/badge/arXiv-2307.05470-b31b1b.svg
-[arxiv-url]: https://arxiv.org/abs/2307.05470
