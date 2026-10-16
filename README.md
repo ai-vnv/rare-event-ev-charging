@@ -153,6 +153,29 @@ Without a key, `--provider esri` stitches Esri's World Light Gray Canvas instead
 needs no key and no browser. Whichever provider is used, its attribution is stored
 beside the image and printed in the corner of every map.
 
+## Sensitivity to the maximum travel time
+
+`scripts/sweep_travel_time.py` re-solves both models for every maximum travel time
+`d_max` from 10 to 75 minutes and writes `results/travel_time_sweep.json`;
+`scripts/build_interactive.py` turns it into `results/interactive.html`, a
+self-contained page with a slider over `d_max` that shows the opened stations on the
+map and the cost, revenue, penalty and objective as a percentage of the 35-minute
+design. Below 29 minutes one sub-district (Pakal) has no candidate within reach and the
+program is infeasible; from 41 minutes the Robust design drops Tandes and serves the
+west from Embong Wungu alone.
+
+<p align="center">
+  <a href="results/interactive.html"><img src="results/figures/interactive_preview.gif" alt="Slider over the maximum travel time: opened stations and objective relative to the 35-minute design" width="820"></a>
+</p>
+
+GitHub shows `results/interactive.html` as source, so open the file locally, or serve it
+from any static host (GitHub Pages: Settings, Pages, deploy from `main`, then
+`/results/interactive.html`). The preview above is `results/figures/interactive_preview.gif`.
+
+```bash
+python scripts/sweep_travel_time.py && python scripts/build_interactive.py
+```
+
 ## Modelling notes
 
 These points are needed to reproduce the results and are stated here in one place.
@@ -196,7 +219,7 @@ exceed 2.2%. The numbers in this repository are the ones the code produces.
 ```
 data/            Surabaya case: stations, demand, travel times, parameters, basemap
 src/evcharging/  the package (data, model, simulate, plots, basemap)
-scripts/         reproduce.py, fetch_basemap.py
+scripts/         reproduce.py, fetch_basemap.py, sweep_travel_time.py, build_interactive.py
 examples/        quickstart.py
 results/         committed outputs of reproduce.py
 tests/           pytest suite

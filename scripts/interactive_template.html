@@ -1,0 +1,344 @@
+<title>Travel Time Sweep</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one control strip, then map beside a metrics column, then the sweep chart. */
+:root {
+  --bg: #f7f6f2;
+  --surface: #fffefb;
+  --fg: #1f2328;
+  --muted: #6b7079;
+  --line: #d9d6cc;
+  --robust: #0072B2;
+  --nonrobust: #D55E00;
+  --warn: #b3261e;
+  --warn-bg: #fbeae8;
+  --map-filter: none;
+  --font-display: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --font-body: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #15171b; --surface: #1d2025; --fg: #e8e6df; --muted: #9a9ea6; --line: #33373e;
+    --robust: #3A9AD9; --nonrobust: #D86F22; --warn: #ff8a80; --warn-bg: #3a2320;
+    --map-filter: invert(0.92) hue-rotate(180deg) saturate(0.55) brightness(0.9);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #15171b; --surface: #1d2025; --fg: #e8e6df; --muted: #9a9ea6; --line: #33373e;
+  --robust: #3A9AD9; --nonrobust: #D86F22; --warn: #ff8a80; --warn-bg: #3a2320;
+  --map-filter: invert(0.92) hue-rotate(180deg) saturate(0.55) brightness(0.9);
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--fg); font-family: var(--font-body);
+  font-size: 15px; line-height: 1.45;
+  padding-block: 28px 48px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.wrap { max-width: 1120px; margin: 0 auto; display: grid; gap: 22px; }
+h1 { font-family: var(--font-display); font-weight: 600; font-size: 1.9rem; line-height: 1.15; margin: 0; text-wrap: balance; }
+.lede { max-width: 68ch; color: var(--muted); margin: 6px 0 0; }
+.lede b { color: var(--fg); font-weight: 500; }
+
+/* control strip */
+.controls { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 24px; padding: 14px 18px; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
+.ctl-slider { flex: 1 1 320px; min-width: 0; display: grid; gap: 4px; }
+.ctl-slider label { font-size: 0.78rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); display: flex; justify-content: space-between; }
+.ctl-slider output { font-family: var(--font-mono); font-size: 1.15rem; color: var(--fg); text-transform: none; letter-spacing: 0; }
+input[type=range] { width: 100%; accent-color: var(--robust); }
+.ticks { display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 0.72rem; color: var(--muted); }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.seg button { background: none; border: 0; padding: 7px 14px; font: inherit; font-size: 0.9rem; color: var(--muted); cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--fg); color: var(--bg); }
+.seg button:focus-visible, .btn:focus-visible, input:focus-visible { outline: 2px solid var(--robust); outline-offset: 2px; }
+.btn { background: none; border: 1px solid var(--line); border-radius: 8px; padding: 7px 12px; font: inherit; font-size: 0.9rem; color: var(--fg); cursor: pointer; }
+
+/* main grid */
+.main { display: grid; grid-template-columns: minmax(0, 3fr) minmax(260px, 2fr); gap: 22px; align-items: start; }
+@media (max-width: 760px) { .main { grid-template-columns: 1fr; } }
+.map { position: relative; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: var(--surface); }
+.map svg { display: block; width: 100%; height: auto; }
+.map image { filter: var(--map-filter); }
+.map .attrib { position: absolute; right: 8px; top: 6px; font-size: 0.68rem; color: var(--muted); background: var(--surface); padding: 1px 6px; border-radius: 4px; opacity: 0.85; }
+.legend { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 0.76rem; color: var(--muted); padding: 6px 12px; }
+.chk { display: inline-flex; align-items: center; gap: 6px; font-size: 0.9rem; color: var(--muted); cursor: pointer; }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend i { display: inline-block; width: 12px; height: 12px; border-radius: 50%; }
+
+/* metrics column */
+.metrics { display: grid; gap: 12px; }
+.tiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+@media (max-width: 460px) { .tiles { grid-template-columns: 1fr; } }
+.tile { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; display: grid; gap: 2px; min-width: 0; }
+.tile.hero { grid-column: 1 / -1; border-color: var(--accent, var(--robust)); }
+.tile .k { font-size: 0.74rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); }
+.tile .pct { font-family: var(--font-mono); font-size: 1.3rem; font-weight: 500; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.tile.hero .pct { font-size: 2.1rem; }
+.tiles-note { font-size: 0.78rem; color: var(--muted); margin: -4px 0 0 2px; }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; }
+.panel h2 { font-family: var(--font-display); font-weight: 600; font-size: 1.05rem; margin: 0 0 8px; }
+.stations { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.stations li { display: flex; justify-content: space-between; gap: 10px; font-size: 0.92rem; }
+.stations li span:last-child { font-family: var(--font-mono); color: var(--muted); white-space: nowrap; }
+.kv { display: grid; grid-template-columns: 1fr auto; gap: 4px 12px; font-size: 0.88rem; margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--line); }
+.kv dt { color: var(--muted); } .kv dd { margin: 0; font-family: var(--font-mono); text-align: right; font-variant-numeric: tabular-nums; }
+.infeasible { grid-column: 1 / -1; background: var(--warn-bg); border: 1px solid var(--warn); border-radius: 10px; padding: 14px 16px; }
+.infeasible h2 { font-family: var(--font-display); font-size: 1.15rem; margin: 0 0 6px; color: var(--warn); }
+.infeasible p { margin: 0 0 8px; }
+.infeasible ul { margin: 0; padding-left: 18px; columns: 2; column-gap: 20px; font-size: 0.9rem; }
+.infeasible li span { font-family: var(--font-mono); color: var(--muted); }
+
+/* sweep chart */
+.chart { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px 8px; position: relative; }
+.chart h2 { font-family: var(--font-display); font-weight: 600; font-size: 1.05rem; margin: 0 0 2px; }
+.chart .sub { font-size: 0.82rem; color: var(--muted); margin: 0 0 8px; }
+.chart svg { display: block; width: 100%; height: auto; cursor: crosshair; }
+.chart .tip { position: absolute; pointer-events: none; background: var(--fg); color: var(--bg); font-family: var(--font-mono); font-size: 0.76rem; padding: 6px 8px; border-radius: 6px; white-space: nowrap; transform: translate(-50%, -110%); }
+.chart .tip b { font-family: var(--font-body); font-weight: 500; }
+.note { font-size: 0.82rem; color: var(--muted); max-width: 80ch; margin: 0; }
+details summary { cursor: pointer; font-size: 0.9rem; color: var(--muted); }
+table { border-collapse: collapse; font-size: 0.82rem; font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+th, td { padding: 4px 10px; border-bottom: 1px solid var(--line); text-align: right; white-space: nowrap; }
+th:first-child, td:first-child { text-align: left; }
+.tablewrap { overflow-x: auto; }
+@media (prefers-reduced-motion: no-preference) { .tile .pct, .map circle, .map line { transition: all 0.25s ease; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>How far may a driver travel to charge?</h1>
+    <p class="lede">The paper fixes the maximum travel time <b>d<sub>max</sub></b> at 35 minutes. Slide it to see which stations open and how cost, revenue, penalty and objective compare with the 35-minute design.</p>
+  </header>
+
+  <section class="controls" aria-label="Controls">
+    <div class="ctl-slider">
+      <label for="dmax">Maximum travel time <output id="dmaxOut" for="dmax">35 min</output></label>
+      <input type="range" id="dmax" min="10" max="75" step="1" value="35" aria-describedby="ticks">
+      <div class="ticks" id="ticks"><span>10 min</span><span>75 min</span></div>
+    </div>
+    <div class="seg" role="group" aria-label="Model">
+      <button type="button" id="mRobust" aria-pressed="true">Robust</button>
+      <button type="button" id="mNon" aria-pressed="false">Non-Robust</button>
+    </div>
+    <button type="button" class="btn" id="reset">Back to 35 min</button>
+    <label class="chk"><input type="checkbox" id="showFlows"> Show assignments</label>
+  </section>
+
+  <section class="main">
+    <div class="map">
+      <svg id="map" viewBox="0 0 1696 1104" role="img" aria-labelledby="mapTitle"><title id="mapTitle">Opened stations and vehicle assignments on the Surabaya basemap</title></svg>
+      <span class="attrib">© Carto © OpenStreetMap contributors</span>
+      <div class="legend"><span><i style="background:var(--robust)"></i>Opened station, sized by connectors</span><span><i style="border:2px solid var(--muted)"></i>Other candidate</span><span><i style="background:var(--muted);opacity:.45"></i>Sub-district</span></div>
+    </div>
+    <div class="metrics" id="metrics"></div>
+  </section>
+
+  <section class="chart">
+    <h2>Daily objective across the sweep</h2>
+    <p class="sub">Percentage of each model's own 35-minute design. Click to move the slider.</p>
+    <svg id="chart" viewBox="0 0 760 280" role="img" aria-label="Objective against maximum travel time"></svg>
+    <div class="tip" id="tip" hidden></div>
+  </section>
+
+  <details>
+    <summary>All sweep values as a table</summary>
+    <div class="tablewrap"><table id="table"></table></div>
+  </details>
+
+  <p class="note">Million IDR per day under the exact station reliabilities p<sub>j</sub> = Φ((z<sub>j</sub> − μ<sub>j</sub>) / σ<sub>j</sub>). The Non-Robust Model ignores travel time in its objective, so several designs tie; the sweep reports the worst tie-break, as the figures of the paper do. Generated by <code>scripts/sweep_travel_time.py</code> and <code>scripts/build_interactive.py</code>.</p>
+</div>
+
+<script>
+const D = __SWEEP_JSON__;
+const W = __WINDOW_JSON__;
+const BASEMAP = "__BASEMAP_URI__";
+const VW = 1696, VH = 1104;
+const MODELS = { robust: { label: "Robust", color: "var(--robust)" }, non_robust: { label: "Non-Robust", color: "var(--nonrobust)" } };
+const state = { dmax: D.paper_dmax, model: "robust", flows: false };
+
+const merc = lat => Math.log(Math.tan(Math.PI / 4 + lat * Math.PI / 360));
+const mN = merc(W.north), mS = merc(W.south);
+const px = lon => (lon - W.west) / (W.east - W.west) * VW;
+const py = lat => (mN - merc(lat)) / (mN - mS) * VH;
+const M = v => (v / 1e6).toFixed(2);
+const pct = (v, b) => (100 * v / b).toFixed(2) + "%";
+const sgn = v => (v >= 0 ? "+" : "−") + Math.abs(v).toFixed(2);
+const esc = s => s.replace(/&/g, "&amp;").replace(/</g, "&lt;");
+const sol = (m, d) => D.sweep[m][String(d)];
+const base = m => sol(m, D.paper_dmax);
+const stationByName = Object.fromEntries(D.stations.map(s => [s.name, s]));
+const nodeByName = Object.fromEntries(D.demand.map(n => [n.name, n]));
+const popMax = Math.max(...D.demand.map(n => n.population));
+
+/* ---------- map ---------- */
+function drawMap() {
+  const s = sol(state.model, state.dmax);
+  const col = MODELS[state.model].color;
+  const unreachable = s.feasible ? new Set() : new Set(D.demand.filter(n => n.reach > state.dmax).map(n => n.name));
+  let g = `<image href="${BASEMAP}" x="0" y="0" width="${VW}" height="${VH}"/>`;
+  if (s.feasible && state.flows) {
+    for (const f of s.flows) {
+      const a = nodeByName[f.i], b = stationByName[f.j];
+      g += `<line x1="${px(a.lon)}" y1="${py(a.lat)}" x2="${px(b.lon)}" y2="${py(b.lat)}" stroke="var(--fg)" stroke-width="1.2" stroke-opacity="0.3"/>`;
+    }
+  }
+  for (const n of D.demand) {
+    const r = 5 + 11 * Math.sqrt(n.population / popMax);
+    const bad = unreachable.has(n.name);
+    g += `<circle cx="${px(n.lon)}" cy="${py(n.lat)}" r="${r}" fill="var(--muted)" fill-opacity="${bad ? 0.2 : 0.4}" stroke="${bad ? "var(--warn)" : "none"}" stroke-width="${bad ? 4 : 0}" ${bad ? 'stroke-dasharray="7 5"' : ""}><title>${esc(n.name)} · ${n.population.toLocaleString()} people · ${n.vehicles} vehicles/day · nearest candidate ${n.reach} min</title></circle>`;
+    if (bad) g += `<text x="${px(n.lon)}" y="${py(n.lat) - r - 8}" text-anchor="middle" font-size="24" font-family="IBM Plex Sans, sans-serif" fill="var(--warn)" font-weight="600">${esc(n.name)} · ${n.reach} min</text>`;
+  }
+  for (const st of D.stations) {
+    const u = s.feasible ? (s.opened[st.name] || 0) : 0;
+    const x = px(st.lon), y = py(st.lat);
+    if (u > 0) {
+      const r = 12 * Math.sqrt(u);
+      g += `<circle cx="${x}" cy="${y}" r="${r}" fill="${col}" fill-opacity="0.9" stroke="var(--surface)" stroke-width="3"><title>${esc(st.name)} · ${u} connector${u > 1 ? "s" : ""}${st.existing ? " · existing station" : ""}</title></circle>`;
+      g += `<text x="${x + r + 8}" y="${y + 8}" font-size="26" font-family="IBM Plex Sans, sans-serif" font-weight="600" fill="var(--fg)" stroke="var(--surface)" stroke-width="6" paint-order="stroke">${esc(st.name)} (${u})</text>`;
+    } else {
+      g += `<circle cx="${x}" cy="${y}" r="9" fill="var(--surface)" fill-opacity="${s.feasible ? 0.9 : 0.5}" stroke="var(--muted)" stroke-width="2.5"><title>${esc(st.name)} · candidate, not opened</title></circle>`;
+    }
+  }
+  document.getElementById("map").innerHTML = `<title id="mapTitle">Opened stations and vehicle assignments</title>` + g;
+}
+
+/* ---------- metrics ---------- */
+function drawMetrics() {
+  const s = sol(state.model, state.dmax), b = base(state.model), col = MODELS[state.model].color;
+  const el = document.getElementById("metrics");
+  el.style.setProperty("--accent", col);
+  if (!s.feasible) {
+    const bad = D.demand.filter(n => n.reach > state.dmax).sort((p, q) => q.reach - p.reach);
+    const minFeasible = Math.max(...D.demand.map(n => n.reach));
+    el.innerHTML = `<div class="infeasible">
+      <h2>Infeasible at ${state.dmax} min</h2>
+      <p>${bad.length} of ${D.demand.length} sub-districts have no candidate station within ${state.dmax} minutes for both vehicle types, so constraint (10) cannot be met. The smallest feasible value is <b>${minFeasible} min</b>.</p>
+      <ul>${bad.map(n => `<li>${esc(n.name)} <span>${n.reach} min</span></li>`).join("")}</ul></div>`;
+    return;
+  }
+  const tile = (key, label, hint, hero) => {
+    const v = s[key], bv = b[key];
+    return `<div class="tile${hero ? " hero" : ""}" title="${M(v)} million IDR per day (35 min: ${M(bv)})"><div class="k">${label}</div>
+      <div class="pct">${pct(v, bv)}</div></div>`;
+  };
+  const opened = Object.entries(s.opened).sort((p, q) => q[1] - p[1]);
+  const conn = opened.reduce((t, [, u]) => t + u, 0);
+  el.innerHTML = `<div class="tiles">
+      ${tile("objective", "Objective", "", true)}
+      ${tile("revenue", "Revenue", "")}
+      ${tile("penalty", "Penalty", "")}
+      ${tile("cost", "Cost", "")}
+    </div>
+    <p class="tiles-note">Percent of the ${MODELS[state.model].label} design at 35 min. Hover a tile for million IDR per day.</p>
+    <div class="panel"><h2>${MODELS[state.model].label} design at ${state.dmax} min</h2>
+      <ul class="stations">${opened.map(([j, u]) => `<li><span>${esc(j)}${stationByName[j].existing ? " <small style=\"color:var(--muted)\">(existing)</small>" : ""}</span><span>${u} connector${u > 1 ? "s" : ""}</span></li>`).join("")}</ul>
+      <dl class="kv">
+        <dt>Stations / connectors</dt><dd>${opened.length} / ${conn}</dd>
+        <dt>Backup coverage</dt><dd>${(100 * s.backup_share).toFixed(0)}%</dd>
+        <dt>Mean travel time</dt><dd>${s.mean_travel_min.toFixed(1)} min</dd>
+      </dl></div>`;
+}
+
+/* ---------- chart ---------- */
+const C = { w: 760, h: 280, l: 58, r: 110, t: 18, b: 46 };
+const xs = d => C.l + (d - D.lo) / (D.hi - D.lo) * (C.w - C.l - C.r);
+let yLo, yHi;
+function drawChart() {
+  const pts = {};
+  for (const m of Object.keys(MODELS)) {
+    const b = base(m).objective;
+    pts[m] = [];
+    for (let d = D.lo; d <= D.hi; d += D.step) { const s = sol(m, d); if (s.feasible) pts[m].push([d, 100 * s.objective / b]); }
+  }
+  const all = Object.values(pts).flat().map(p => p[1]);
+  yLo = Math.floor(Math.min(...all) * 2) / 2 - 0.25; yHi = Math.ceil(Math.max(...all) * 2) / 2 + 0.25;
+  const ys = v => C.t + (yHi - v) / (yHi - yLo) * (C.h - C.t - C.b);
+  const minFeasible = Math.min(...Object.values(pts).flat().map(p => p[0]));
+  let g = "";
+  // infeasible region
+  g += `<rect x="${xs(D.lo)}" y="${C.t}" width="${xs(minFeasible - 0.5) - xs(D.lo)}" height="${C.h - C.t - C.b}" fill="var(--warn)" fill-opacity="0.08"/>`;
+  g += `<text x="${(xs(D.lo) + xs(minFeasible - 0.5)) / 2}" y="${C.t + 16}" text-anchor="middle" font-size="11" fill="var(--warn)" font-family="IBM Plex Sans, sans-serif">infeasible below ${minFeasible} min</text>`;
+  // grid + y axis
+  const yStep = (yHi - yLo) > 3 ? 1 : 0.5;
+  for (let v = Math.ceil(yLo); v <= yHi; v += yStep) {
+    g += `<line x1="${C.l}" x2="${C.w - C.r}" y1="${ys(v)}" y2="${ys(v)}" stroke="var(--line)" stroke-width="1"/>`;
+    g += `<text x="${C.l - 8}" y="${ys(v) + 4}" text-anchor="end" font-size="11" font-family="IBM Plex Mono, monospace" fill="var(--muted)">${v.toFixed(1)}%</text>`;
+  }
+  for (let d = 10; d <= D.hi; d += 10) g += `<text x="${xs(d)}" y="${C.h - 26}" text-anchor="middle" font-size="11" font-family="IBM Plex Mono, monospace" fill="var(--muted)">${d}</text>`;
+  g += `<text x="${(C.l + C.w - C.r) / 2}" y="${C.h - 6}" text-anchor="middle" font-size="11" fill="var(--muted)" font-family="IBM Plex Sans, sans-serif">maximum travel time, min</text>`;
+  // paper reference
+  g += `<line x1="${xs(D.paper_dmax)}" x2="${xs(D.paper_dmax)}" y1="${C.t}" y2="${C.h - C.b}" stroke="var(--muted)" stroke-dasharray="3 4"/>`;
+  g += `<text x="${xs(D.paper_dmax) + 4}" y="${C.h - C.b - 4}" font-size="10" fill="var(--muted)" font-family="IBM Plex Sans, sans-serif">paper: 35 min = 100%</text>`;
+  // series
+  for (const m of Object.keys(MODELS)) {
+    const p = pts[m], col = MODELS[m].color, active = m === state.model;
+    const path = p.map((q, i) => (i ? "L" : "M") + xs(q[0]).toFixed(1) + " " + ys(q[1]).toFixed(1)).join(" ");
+    g += `<path d="${path}" fill="none" stroke="${col}" stroke-width="${active ? 2.4 : 1.6}" stroke-opacity="${active ? 1 : 0.55}" stroke-linejoin="round"/>`;
+    const last = p[p.length - 1];
+    g += `<text x="${xs(last[0]) + 8}" y="${ys(last[1]) + 4}" font-size="12" font-weight="600" fill="${col}" font-family="IBM Plex Sans, sans-serif">${MODELS[m].label}</text>`;
+  }
+  // current marker
+  g += `<line id="cur" x1="${xs(state.dmax)}" x2="${xs(state.dmax)}" y1="${C.t}" y2="${C.h - C.b}" stroke="var(--fg)" stroke-width="1.2"/>`;
+  for (const m of Object.keys(MODELS)) {
+    const s = sol(m, state.dmax);
+    if (s.feasible) g += `<circle cx="${xs(state.dmax)}" cy="${ys(100 * s.objective / base(m).objective)}" r="${m === state.model ? 5 : 3.5}" fill="${MODELS[m].color}" stroke="var(--surface)" stroke-width="2"/>`;
+  }
+  g += `<rect id="hit" x="${C.l}" y="${C.t}" width="${C.w - C.l - C.r}" height="${C.h - C.t - C.b}" fill="transparent"/>`;
+  document.getElementById("chart").innerHTML = g;
+}
+const chart = document.getElementById("chart"), tip = document.getElementById("tip");
+function chartD(ev) {
+  const r = chart.getBoundingClientRect();
+  const x = (ev.clientX - r.left) / r.width * C.w;
+  return Math.max(D.lo, Math.min(D.hi, Math.round(D.lo + (x - C.l) / (C.w - C.l - C.r) * (D.hi - D.lo))));
+}
+chart.addEventListener("mousemove", ev => {
+  const d = chartD(ev), r = chart.getBoundingClientRect(), host = chart.parentElement.getBoundingClientRect();
+  const rows = Object.keys(MODELS).map(m => { const s = sol(m, d); return `<b>${MODELS[m].label}</b> ${s.feasible ? pct(s.objective, base(m).objective) + " · " + M(s.objective) + " M" : "infeasible"}`; });
+  tip.innerHTML = `${d} min<br>${rows.join("<br>")}`;
+  tip.hidden = false;
+  tip.style.left = (r.left - host.left + xs(d) / C.w * r.width) + "px";
+  tip.style.top = (r.top - host.top + C.t / C.h * r.height + 8) + "px";
+});
+chart.addEventListener("mouseleave", () => { tip.hidden = true; });
+chart.addEventListener("click", ev => { setDmax(chartD(ev)); });
+
+/* ---------- table ---------- */
+function drawTable() {
+  const head = `<tr><th>d<sub>max</sub></th>${Object.keys(MODELS).map(m => `<th>${MODELS[m].label} design</th><th>Objective</th><th>% of 35</th><th>Cost</th><th>Penalty</th>`).join("")}</tr>`;
+  let rows = "";
+  for (let d = D.lo; d <= D.hi; d += D.step) {
+    rows += `<tr><td>${d}</td>` + Object.keys(MODELS).map(m => {
+      const s = sol(m, d), b = base(m);
+      if (!s.feasible) return `<td colspan="5" style="text-align:left;color:var(--muted)">infeasible</td>`;
+      const des = Object.entries(s.opened).map(([j, u]) => `${j} (${u})`).join(", ");
+      return `<td style="text-align:left">${esc(des)}</td><td>${M(s.objective)}</td><td>${pct(s.objective, b.objective)}</td><td>${M(s.cost)}</td><td>${M(s.penalty)}</td>`;
+    }).join("") + "</tr>";
+  }
+  document.getElementById("table").innerHTML = head + rows;
+}
+
+/* ---------- wiring ---------- */
+const slider = document.getElementById("dmax"), out = document.getElementById("dmaxOut");
+slider.min = D.lo; slider.max = D.hi; slider.step = D.step;
+function render() { out.textContent = state.dmax + " min"; slider.value = state.dmax; drawMap(); drawMetrics(); drawChart(); }
+function setDmax(d) { state.dmax = d; render(); }
+slider.addEventListener("input", () => setDmax(+slider.value));
+document.getElementById("reset").addEventListener("click", () => setDmax(D.paper_dmax));
+document.getElementById("showFlows").addEventListener("change", ev => { state.flows = ev.target.checked; drawMap(); });
+for (const [id, m] of [["mRobust", "robust"], ["mNon", "non_robust"]]) {
+  document.getElementById(id).addEventListener("click", () => {
+    state.model = m;
+    document.getElementById("mRobust").setAttribute("aria-pressed", m === "robust");
+    document.getElementById("mNon").setAttribute("aria-pressed", m === "non_robust");
+    render();
+  });
+}
+drawTable();
+render();
+</script>
